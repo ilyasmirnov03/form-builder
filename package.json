@@ -1,0 +1,25 @@
+{
+  "name": "form-builder",
+  "version": "0.0.0",
+  "description": "Form Builder is a library for better FormData use in plain JavaScript.",
+  "main": "index.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ilyasmirnov03/form-builder.git"
+  },
+  "keywords": [
+    "form",
+    "ui",
+    "vanilla",
+    "js"
+  ],
+  "author": "Ilya Smirnov",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/ilyasmirnov03/form-builder/issues"
+  },
+  "homepage": "https://github.com/ilyasmirnov03/form-builder#readme",
+  "devDependencies": {
+    "typescript": "5.8.2"
+  }
+}
