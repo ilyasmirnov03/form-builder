@@ -32,7 +32,7 @@ export class FormBuilder {
     }
 
     if (!(target instanceof HTMLFormElement)) {
-      throw new TypeError(`FormBuilder init error: found target isn't a form element.`);
+      throw new TypeError('FormBuilder init error: found target isn\'t a form element.');
     }
 
     this._target = target;
