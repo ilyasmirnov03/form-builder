@@ -11,7 +11,7 @@ describe('FormBuilder', () => {
       (global as any).document = dom.window.document;
 
       new FormBuilder('.form', {});
-    }).toThrow();
+    }).toThrow(Error);
   });
 
   test('Should not throw on matched selector', () => {
