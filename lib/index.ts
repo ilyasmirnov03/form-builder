@@ -1,2 +1,2 @@
 export * from './form-builder';
-export * from './form-part';
+export * from './form-field';

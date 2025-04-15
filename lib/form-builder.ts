@@ -1,6 +1,6 @@
-import { FormPart } from './form-part';
+import { FormField } from './form-field';
 
-type FormDefinition = Record<string, FormPart>;
+type FormDefinition = Record<string, FormField>;
 
 /**
  * Form builder is the form-building class that holds the provided inputs together.
