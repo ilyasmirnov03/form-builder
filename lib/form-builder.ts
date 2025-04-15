@@ -1,21 +1,26 @@
 import { FormField } from './form-field';
 
-type FormDefinition = Record<string, FormField>;
-
 /**
  * Form builder is the form-building class that holds the provided inputs together.
  */
-export class FormBuilder {
+export class FormBuilder<TFields extends { [key: string]: FormField<unknown> }> {
 
   /**
    * Description of the form inputs.
    */
-  private _formDefinition: FormDefinition;
+  private _formDefinition: TFields;
 
   /**
    * Target form element.
    */
   private readonly _target?: HTMLFormElement;
+
+  /**
+   * Get fields of form.
+   */
+  public get fields(): TFields {
+    return this._formDefinition;
+  }
 
   /**
    * Constructor of the form builder class.
@@ -24,7 +29,7 @@ export class FormBuilder {
    * @throws Error when provided selector doesn't match any element.
    * @throws TypeError when found target with provided selector isn't a form element.
    */
-  public constructor(selector: string, formDefinition: FormDefinition) {
+  public constructor(selector: string, formDefinition: TFields) {
     this._formDefinition = formDefinition;
     const target = document.querySelector(selector);
     if (target == null) {
@@ -36,6 +41,10 @@ export class FormBuilder {
     }
 
     this._target = target;
+
+    for (const key of Object.keys(formDefinition)) {
+      formDefinition[key].name = key;
+    }
   }
 
   /**
