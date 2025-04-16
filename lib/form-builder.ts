@@ -13,7 +13,7 @@ export class FormBuilder<TFields extends { [key: string]: FormField<unknown> }> 
   /**
    * Target form element.
    */
-  private readonly _target?: HTMLFormElement;
+  private readonly _target: HTMLFormElement;
 
   /**
    * Get fields of form.
@@ -43,7 +43,7 @@ export class FormBuilder<TFields extends { [key: string]: FormField<unknown> }> 
     this._target = target;
 
     for (const key of Object.keys(formDefinition)) {
-      formDefinition[key].name = key;
+      formDefinition[key].setName(key, target);
     }
   }
 
