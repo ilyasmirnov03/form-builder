@@ -19,7 +19,7 @@ export class FormField<T> {
    * Reference to the used input element.
    * In case of radio buttons, is a list of radio button elements.
    */
-  private _inputReference?: HTMLInputElement | HTMLTextAreaElement | RadioNodeList;
+  private _inputReference?: HTMLInputElement | HTMLTextAreaElement | RadioNodeList | HTMLSelectElement;
 
   /**
    * Field's value getter.
@@ -46,10 +46,20 @@ export class FormField<T> {
     this._name = name;
 
     const item = form.elements.namedItem(name);
-    if (isValidFormElement(item)) {
-      this._inputReference = item;
-    } else {
+
+    if (!isValidFormElement(item)) {
       throw new TypeError(`FormField setName error: found item "${name}" is invalid.`);
     }
+
+    this._inputReference = item;
+
+    // TODO: make a proper conversion function to ensure right type use
+    item.value = this._value as string;
+
+    // TODO: make a proper conversion function to ensure right type use
+    // TODO: add option to either assign value from html or to html
+    this._value = item.value as T;
+
+    // TODO: check for type of input element. For example, need to set checked value for input checkbox
   }
 }
