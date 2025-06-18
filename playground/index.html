@@ -7,8 +7,47 @@
   </head>
   <body>
     <form class="form">
-      <label for="name"></label>
+      <label for="name">name</label>
       <input type="text" name="name" id="name">
+
+      <label for="amount">amount</label>
+      <input type="number" name="amount" id="amount">
+
+      <fieldset>
+        <legend>Select a job:</legend>
+
+        <div>
+          <input type="radio" id="plumber" name="job" value="plumber" checked />
+          <label for="plumber">plumber</label>
+        </div>
+
+        <div>
+          <input type="radio" id="programmer" name="job" value="programmer" />
+          <label for="programmer">programmer</label>
+        </div>
+
+        <div>
+          <input type="radio" id="chef" name="job" value="chef" />
+          <label for="louie">chef</label>
+        </div>
+      </fieldset>
+
+      <label for="description">description</label>
+      <textarea name="description" id="description"></textarea>
+
+      <div>
+        <label for="happy">happy?</label>
+        <input type="checkbox" name="happy" id="happy" />
+      </div>
+
+      <div>
+        <label for="meal">meal</label>
+        <select name="meal" id="meal">
+          <option value="pizza">pizza</option>
+          <option value="soup">soup</option>
+          <option value="apple">apple</option>
+        </select>
+      </div>
     </form>
     <script type="module" src="/src/main.ts"></script>
   </body>
