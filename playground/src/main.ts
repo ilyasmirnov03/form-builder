@@ -8,4 +8,9 @@ const fb = new FormBuilder('.form', {
   happy: new FormField(true),
   meal: new FormField('soup'),
 });
+
 console.log(fb.fields);
+
+fb.fields.name.onChange(() => {
+  console.log(fb.fields.happy.value);
+})

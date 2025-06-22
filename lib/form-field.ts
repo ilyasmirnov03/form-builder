@@ -1,3 +1,4 @@
+import { InputValueSubscriber } from './input-reference/input-value-subscriber';
 import { isValidFormElement } from './is-valid-form-element';
 
 /**
@@ -11,15 +12,9 @@ export class FormField<T> {
   private _value: T;
 
   /**
-   * Name of the input this form field is linked to.
+   * Input value subscriber that helps with subscribing to input events.
    */
-  private _name = '';
-
-  /**
-   * Reference to the used input element.
-   * In case of radio buttons, is a list of radio button elements.
-   */
-  private _inputReference?: HTMLInputElement | HTMLTextAreaElement | RadioNodeList | HTMLSelectElement;
+  private _inputValueSubscriber?: InputValueSubscriber<T>;
 
   /**
    * Field's value getter.
@@ -43,23 +38,27 @@ export class FormField<T> {
    * @throws TypeError if found form element is not of valid type (accepts only)
    */
   public setName(name: string, form: HTMLFormElement): void {
-    this._name = name;
-
     const item = form.elements.namedItem(name);
 
     if (!isValidFormElement(item)) {
       throw new TypeError(`FormField setName error: found item "${name}" is invalid.`);
     }
 
-    this._inputReference = item;
-
-    // TODO: make a proper conversion function to ensure right type use
-    item.value = this._value as string;
+    item.value = String(this._value);
 
     // TODO: make a proper conversion function to ensure right type use
     // TODO: add option to either assign value from html or to html
     this._value = item.value as T;
 
-    // TODO: check for type of input element. For example, need to set checked value for input checkbox
+    this._inputValueSubscriber = new InputValueSubscriber(item, (v) => this._value = v);
+  }
+
+  /**
+   * Callback to execute on input's value change.
+   * @param callback Function that will get executed with the input's new value
+   */
+  public onChange(callback: (value: T) => void): void {
+    this._inputValueSubscriber?.subscribeToChange(callback);
   }
 }
+

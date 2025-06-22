@@ -3,7 +3,8 @@ import { FormField } from './form-field';
 /**
  * Form builder is the form-building class that holds the provided inputs together.
  */
-export class FormBuilder<TFields extends { [key: string]: FormField<unknown> }> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Using unknown would be better but it breaks the TS server and type inferrence on TFields
+export class FormBuilder<TFields extends { [key: string]: FormField<any> }> {
 
   /**
    * Description of the form inputs.
