@@ -1,4 +1,4 @@
-import { HandledHTMLInputs } from './type/handled-html-inputs.type';
+import { HandledHTMLInputs } from '../type/handled-html-inputs.type';
 
 /**
  * Check if passed form element is valid for use with FormField.

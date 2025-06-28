@@ -33,9 +33,9 @@ export class InputValueSubscriber<T> {
       inputElement.addEventListener('change', () => {
         let value: T;
 
-        if (inputElement instanceof HTMLInputElement && inputElement.type === 'checkbox') {
-
-          // Assume that T is boolean in case of checkbox input
+        if (inputElement.type === 'number') {
+          value = Number(inputElement.value) as T;
+        } else if (inputElement instanceof HTMLInputElement && inputElement.type === 'checkbox') {
           value = inputElement.checked as T;
         } else {
           value = inputElement.value as T;

@@ -1,5 +1,5 @@
 import { InputValueSubscriber } from './input-reference/input-value-subscriber';
-import { isValidFormElement } from './is-valid-form-element';
+import { isValidFormElement } from './util/is-valid-form-element';
 
 /**
  * Form part is a description of an input in the FormBuilder class.
@@ -44,13 +44,11 @@ export class FormField<T> {
       throw new TypeError(`FormField setName error: found item "${name}" is invalid.`);
     }
 
+    this._inputValueSubscriber = new InputValueSubscriber(item, (v) => this._value = v);
+
     item.value = String(this._value);
 
-    // TODO: make a proper conversion function to ensure right type use
     // TODO: add option to either assign value from html or to html
-    this._value = item.value as T;
-
-    this._inputValueSubscriber = new InputValueSubscriber(item, (v) => this._value = v);
   }
 
   /**
