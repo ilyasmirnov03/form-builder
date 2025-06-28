@@ -2,19 +2,19 @@ import { HandledHTMLInputs } from '../type/handled-html-inputs.type';
 
 /**
  * InputValueSubscriber is a wrapper around all possible HTML
- * input elements that handles boilerplate event listener code
+ * input elements that handles boilerplate event listener code.
  */
 export class InputValueSubscriber<T> {
 
   /**
-   * Optional onChange callback
+   * Optional onChange callback.
    */
   private _onChange: ((value: T) => void) | null = null;
 
   /**
-   * InputReference constructor
-   * @param inputElement Input element to reference
-   * @param onChange Callback for input change event
+   * InputReference constructor.
+   * @param inputElement Input element to reference.
+   * @param onChange Callback for input change event.
    */
   public constructor(
     inputElement: HandledHTMLInputs,
@@ -49,7 +49,7 @@ export class InputValueSubscriber<T> {
   }
 
   /**
-   * Subscribe to the input's change event
+   * Subscribe to the input's change event.
    */
   public subscribeToChange(onChange: (v: T) => void): void {
     this._onChange = onChange;

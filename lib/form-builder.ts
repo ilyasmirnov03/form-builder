@@ -1,10 +1,18 @@
 import { FormField } from './form-field';
 
+// Type to infer the FormField value
+type FieldValue<T> = T extends FormField<infer U> ? U : never;
+
+// Type that maps over TFields keys and retrieves the value type from each one
+type FormValues<TFields> = {
+  [K in keyof TFields]: FieldValue<TFields[K]>;
+};
+
 /**
  * Form builder is the form-building class that holds the provided inputs together.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Using unknown would be better but it breaks the TS server and type inferrence on TFields
-export class FormBuilder<TFields extends { [key: string]: FormField<any> }> {
+export class FormBuilder<TFields extends Record<string, FormField<any>>> {
 
   /**
    * Description of the form inputs.
@@ -21,6 +29,19 @@ export class FormBuilder<TFields extends { [key: string]: FormField<any> }> {
    */
   public get fields(): TFields {
     return this._formDefinition;
+  }
+
+  /**
+   * Get value of the form.
+   */
+  public get value(): FormValues<TFields> {
+    const val: Partial<FormValues<TFields>> = {};
+
+    for (const fieldKey in this._formDefinition) {
+      val[fieldKey] = this._formDefinition[fieldKey].value;
+    }
+
+    return val as FormValues<TFields>;
   }
 
   /**
@@ -57,5 +78,15 @@ export class FormBuilder<TFields extends { [key: string]: FormField<any> }> {
       throw new Error('FormBuilder target get error: target isn\'t available yet.');
     }
     return this._target;
+  }
+
+  /**
+   * Subscribe to the submit event.
+   */
+  public onSubmit(callback: (value: FormValues<TFields>) => void): void {
+    this._target.addEventListener('submit', (ev: SubmitEvent) => {
+      ev.preventDefault();
+      callback(this.value);
+    });
   }
 }

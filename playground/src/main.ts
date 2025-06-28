@@ -14,3 +14,8 @@ console.log(fb.fields);
 fb.fields.name.onChange(() => {
   console.log(fb.fields.happy.value);
 })
+
+fb.onSubmit((v) => {
+  console.log(v);
+})
+

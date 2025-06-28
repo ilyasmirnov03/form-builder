@@ -35,7 +35,7 @@ export class FormField<T> {
    * Sets the name and the input element of this field.
    * @param name Name of the input.
    * @param form Parent form element of the field.
-   * @throws TypeError if found form element is not of valid type (accepts only)
+   * @throws TypeError if found form element is not of valid type.
    */
   public setName(name: string, form: HTMLFormElement): void {
     const item = form.elements.namedItem(name);
@@ -55,7 +55,7 @@ export class FormField<T> {
 
   /**
    * Callback to execute on input's value change.
-   * @param callback Function that will get executed with the input's new value
+   * @param callback Function that will get executed with the input's new value.
    */
   public onChange(callback: (value: T) => void): void {
     this._inputValueSubscriber?.subscribeToChange(callback);
