@@ -7,15 +7,17 @@ const fb = new FormBuilder('.form', {
   description: new FormField('very long description'),
   happy: new FormField(true),
   meal: new FormField('soup'),
+  time: new FormField(''),
+  range: new FormField(0),
 });
 
 console.log(fb.fields);
 
 fb.fields.name.onChange(() => {
   console.log(fb.fields.happy.value);
-})
+});
 
 fb.onSubmit((v) => {
   console.log(v);
-})
+});
 
