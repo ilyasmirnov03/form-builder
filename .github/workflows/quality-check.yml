@@ -1,0 +1,41 @@
+# Setup node.js and npm, run quality check and finally run tests.
+
+name: Quality check
+
+# On push to anything but "main".
+on:
+  push:
+    branches:
+      - '*'
+      - '*/*'
+      - '**'
+      - '!main'
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          clean: false
+
+      - name: Setup Nodejs and npm
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install dependencies
+        run: npm ci
+
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run eslint
+        run: npm run lint
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run tests
+        run: npm run test
+
