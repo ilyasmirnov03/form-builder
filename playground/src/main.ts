@@ -3,7 +3,9 @@ import { FormBuilder, FormField } from '../../lib';
 const fb = new FormBuilder('.form', {
   name: new FormField('mario'),
   amount: new FormField(0),
-  job: new FormField('programmer'),
+  job: new FormField<{ title: string } | null>(null, (v) => {
+    return { title: v };
+  }),
   description: new FormField('very long description'),
   happy: new FormField(true),
   meal: new FormField('soup'),
@@ -13,8 +15,8 @@ const fb = new FormBuilder('.form', {
 
 console.log(fb.fields);
 
-fb.fields.name.onChange(() => {
-  console.log(fb.fields.happy.value);
+fb.fields.job.onChange((v) => {
+  console.log(v);
 });
 
 fb.onSubmit((v) => {

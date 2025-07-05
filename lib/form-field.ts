@@ -17,6 +17,11 @@ export class FormField<T> {
   private _inputValueSubscriber?: InputValueSubscriber<T>;
 
   /**
+   * Value transformer function. See @constructor
+   */
+  private readonly _valueTransformer?: (v: string) => T;
+
+  /**
    * Field's value getter.
    */
   public get value(): T {
@@ -24,11 +29,14 @@ export class FormField<T> {
   }
 
   /**
-   * FormField
+   * FormField constructor
    * @param value Initial value.
+   * @param valueTransformer This function will get called on input change with the input element value.
+   * Checkboxes inputs will send "true" or "false" and all number inputs will send the number as a stirng.
    */
-  public constructor(value: T) {
+  public constructor(value: T, valueTransformer?: (v: string) => T) {
     this._value = value;
+    this._valueTransformer = valueTransformer;
   }
 
   /**
@@ -44,7 +52,13 @@ export class FormField<T> {
       throw new TypeError(`FormField setName error: found item "${name}" is invalid.`);
     }
 
-    this._inputValueSubscriber = new InputValueSubscriber(item, (v) => this._value = v);
+    this._inputValueSubscriber = new InputValueSubscriber(item, (v) => {
+      if (this._valueTransformer != null) {
+        this._value = this._valueTransformer(String(v));
+      } else {
+        this._value = v;
+      }
+    });
 
     item.value = String(this._value);
 
@@ -56,7 +70,9 @@ export class FormField<T> {
    * @param callback Function that will get executed with the input's new value.
    */
   public onChange(callback: (value: T) => void): void {
-    this._inputValueSubscriber?.subscribeToChange(callback);
+    this._inputValueSubscriber?.subscribeToChange(() => {
+      callback(this._value);
+    });
   }
 }
 
