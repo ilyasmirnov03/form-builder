@@ -10,6 +10,7 @@ export function provideGlobal(dom: string): void {
   (global as any).HTMLInputElement = jsdom.window.HTMLInputElement;
   (global as any).HTMLTextAreaElement = jsdom.window.HTMLTextAreaElement;
   (global as any).HTMLSelectElement = jsdom.window.HTMLSelectElement;
+  (global as any).Event = jsdom.window.Event;
 
   // Create a form with multiple elements of the same name to get a RadioNodeList
   const dummyDoc = new JSDOM(`
