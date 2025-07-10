@@ -16,7 +16,7 @@ Table of Contents
 
 To use FormBuilder, include the source files in your project:
 
-import { FormBuilder, FormField } from '@is/form-builder';
+import { FormBuilder, FormField } from '@ilyasmirnov03/form-builder';
 
 ## Quick Start
 
