@@ -1,5 +1,5 @@
 {
-  "name": "form-builder",
+  "name": "@is/form-builder",
   "version": "0.0.0",
   "description": "Form Builder is a library for better FormData use in plain JavaScript.",
   "repository": {
