@@ -11,7 +11,7 @@
     "skipLibCheck": true,
     "declaration": true,
     "isolatedModules": true,
-    "outDir": "./dist",
+    "outDir": "./dist"
   },
   "include": ["./lib"],
   "exclude": ["./node_modules"]
