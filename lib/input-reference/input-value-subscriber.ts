@@ -1,4 +1,5 @@
 import { HandledHTMLInputs } from '../type/handled-html-inputs.type';
+import { isNumberReturningInput } from './is-number-returning-input';
 
 /**
  * InputValueSubscriber is a wrapper around all possible HTML
@@ -33,7 +34,7 @@ export class InputValueSubscriber<T> {
       inputElement.addEventListener('change', () => {
         let value: T;
 
-        if (inputElement.type === 'number' || inputElement.type === 'range') {
+        if (isNumberReturningInput(inputElement as HTMLInputElement)) {
           value = Number(inputElement.value) as T;
         } else if (inputElement instanceof HTMLInputElement && inputElement.type === 'checkbox') {
           value = inputElement.checked as T;
